@@ -1,5 +1,5 @@
 from turtle import Screen
-from config import WIDTH, HEIGHT, PADDLE_LENGTH
+from config import WIDTH, HEIGHT, PADDLE_LENGTH, GAME_SPEED, WIN_POINTS
 from paddle import Paddle
 from time import sleep
 from ball import Ball
@@ -29,27 +29,27 @@ screen.listen()
 
 game_is_on = True
 while game_is_on:
-    sleep(0.015)
+    sleep(GAME_SPEED)
     screen.update()
     ball.move()
     if abs(ball.ycor()) >= HEIGHT / 2 - 20:
         ball.bounce_horizontally()
 
     # Detect bounce with left paddle
-    if 10 < ball.xcor() - paddle_left.xcor() < 20 and abs(ball.ycor() - paddle_left.ycor()) < PADDLE_LENGTH / 2:
+    if 10 < ball.xcor() - paddle_left.xcor() < 20 and abs(ball.ycor() - paddle_left.ycor()) < PADDLE_LENGTH / 2 + 2:
         ball.bounce_vertically()
 
-    if 10 < paddle_right.xcor() - ball.xcor() < 20 and abs(ball.ycor() - paddle_right.ycor()) < PADDLE_LENGTH / 2:
+    if 10 < paddle_right.xcor() - ball.xcor() < 20 and abs(ball.ycor() - paddle_right.ycor()) < PADDLE_LENGTH / 2 + 2:
         ball.bounce_vertically()
 
     if abs(ball.xcor()) >= WIDTH / 2:
         if ball.xcor() >= WIDTH / 2:
             score_left.add_score()
-            if score_left.score == 10:
+            if score_left.score == WIN_POINTS:
                 game_is_on = False
         else:
             score_right.add_score()
-            if score_right.score == 10:
+            if score_right.score == WIN_POINTS:
                 game_is_on = False
         ball.reset_position()
 

@@ -1,5 +1,5 @@
 from turtle import Turtle
-from config import HEIGHT, PADDLE_LENGTH
+from config import HEIGHT, PADDLE_LENGTH, PADDLE_SPEED
 
 
 class Paddle(Turtle):
@@ -16,8 +16,8 @@ class Paddle(Turtle):
 
     def up(self):
         if self.ycor() < (HEIGHT - PADDLE_LENGTH) / 2:
-            self.forward(20)
+            self.forward(PADDLE_SPEED)
 
     def down(self):
         if self.ycor() > -(HEIGHT - PADDLE_LENGTH) / 2:
-            self.back(20)
+            self.back(PADDLE_SPEED)

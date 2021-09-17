@@ -1,7 +1,6 @@
 from turtle import Turtle
-from config import HEIGHT
-ALIGNMENT = 'center'
-FONT = ('Courier', 40, 'bold')
+from config import ALIGNMENT, FONT
+
 
 class Scoreboard(Turtle):
     def __init__(self, position):

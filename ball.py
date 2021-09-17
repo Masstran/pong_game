@@ -1,7 +1,6 @@
 from turtle import Turtle
+from config import MIDDLE_DEAD_ZONE, BALL_SPEED, BALL_RESET_PAUSE
 import random
-
-MIDDLE_DEAD_ZONE = 60
 
 
 class Ball(Turtle):
@@ -20,7 +19,7 @@ class Ball(Turtle):
                 or (270 - MIDDLE_DEAD_ZONE / 2 < direction < 270 + MIDDLE_DEAD_ZONE / 2):
             direction = random.random() * 360
         self.setheading(direction)
-        self.wait = 15
+        self.wait = BALL_RESET_PAUSE
 
     def bounce_horizontally(self):
         self.setheading(360 - self.heading())
@@ -32,4 +31,4 @@ class Ball(Turtle):
         if self.wait > 0:
             self.wait -= 1
         else:
-            self.forward(10)
+            self.forward(BALL_SPEED)
