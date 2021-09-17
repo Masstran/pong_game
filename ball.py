@@ -1,6 +1,7 @@
 from turtle import Turtle
 import random
-from config import UPPER_BOUND, LOWER_BOUND, RIGHT_BOUND, LEFT_BOUND
+
+MIDDLE_DEAD_ZONE = 60
 
 
 class Ball(Turtle):
@@ -9,15 +10,17 @@ class Ball(Turtle):
         self.shape("circle")
         self.color("white")
         self.penup()
-        self.reset_position()
         self.wait = 0
+        self.reset_position()
 
     def reset_position(self):
         self.goto(0, 0)
         direction = random.random() * 360
-        while (80 < direction < 100) or (260 < direction < 280):
+        while (90 - MIDDLE_DEAD_ZONE / 2 < direction < 90 + MIDDLE_DEAD_ZONE / 2) \
+                or (270 - MIDDLE_DEAD_ZONE / 2 < direction < 270 + MIDDLE_DEAD_ZONE / 2):
             direction = random.random() * 360
         self.setheading(direction)
+        self.wait = 15
 
     def bounce_horizontally(self):
         self.setheading(360 - self.heading())

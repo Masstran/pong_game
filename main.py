@@ -3,6 +3,7 @@ from config import WIDTH, HEIGHT, PADDLE_LENGTH
 from paddle import Paddle
 from time import sleep
 from ball import Ball
+from scoreboard import Scoreboard
 
 screen = Screen()
 screen.setup(width=WIDTH, height=HEIGHT)
@@ -17,6 +18,9 @@ paddle_right = Paddle(position_right)
 
 ball = Ball()
 
+score_left = Scoreboard((-60, HEIGHT / 2 - 60))
+score_right = Scoreboard((60, HEIGHT / 2 - 60))
+
 screen.onkeypress(key="w", fun=paddle_left.up)
 screen.onkeypress(key='s', fun=paddle_left.down)
 screen.onkeypress(key='Up', fun=paddle_right.up)
@@ -25,7 +29,7 @@ screen.listen()
 
 game_is_on = True
 while game_is_on:
-    sleep(0.02)
+    sleep(0.015)
     screen.update()
     ball.move()
     if abs(ball.ycor()) >= HEIGHT / 2 - 20:
@@ -39,10 +43,16 @@ while game_is_on:
         ball.bounce_vertically()
 
     if abs(ball.xcor()) >= WIDTH / 2:
+        if ball.xcor() >= WIDTH / 2:
+            score_left.add_score()
+            if score_left.score == 10:
+                game_is_on = False
+        else:
+            score_right.add_score()
+            if score_right.score == 10:
+                game_is_on = False
         ball.reset_position()
-        ball.wait = 15
 
-    # if abs(ball.xcor()) >= RIGHT_BOUND:
-    #     ball.reset_position()
-
+ball.reset_position()
+screen.update()
 screen.exitonclick()
