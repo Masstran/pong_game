@@ -16,8 +16,8 @@ class Paddle(Turtle):
 
     def up(self):
         if self.ycor() < (HEIGHT - PADDLE_LENGTH) / 2:
-            self.forward(10)
+            self.forward(20)
 
     def down(self):
         if self.ycor() > -(HEIGHT - PADDLE_LENGTH) / 2:
-            self.back(10)
+            self.back(20)
