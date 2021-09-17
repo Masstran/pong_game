@@ -10,6 +10,7 @@ class Ball(Turtle):
         self.color("white")
         self.penup()
         self.reset_position()
+        self.wait = 0
 
     def reset_position(self):
         self.goto(0, 0)
@@ -18,13 +19,14 @@ class Ball(Turtle):
             direction = random.random() * 360
         self.setheading(direction)
 
-    def correct_heading(self):
-        if abs(self.ycor()) >= UPPER_BOUND - 10:
-            self.setheading(360 - self.heading())
+    def bounce_horizontally(self):
+        self.setheading(360 - self.heading())
 
-        if abs(self.xcor()) >= RIGHT_BOUND:
-            self.setheading(180 - self.heading())
+    def bounce_vertically(self):
+        self.setheading(180 - self.heading())
 
     def move(self):
-        self.correct_heading()
-        self.forward(10)
+        if self.wait > 0:
+            self.wait -= 1
+        else:
+            self.forward(10)
