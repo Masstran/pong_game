@@ -14,6 +14,8 @@ class Ball(Turtle):
     def reset_position(self):
         self.goto(0, 0)
         direction = random.random() * 360
+        while (80 < direction < 100) or (260 < direction < 280):
+            direction = random.random() * 360
         self.setheading(direction)
 
     def correct_heading(self):
@@ -21,7 +23,7 @@ class Ball(Turtle):
             self.setheading(360 - self.heading())
 
         if abs(self.xcor()) >= RIGHT_BOUND:
-            self.reset_position()
+            self.setheading(180 - self.heading())
 
     def move(self):
         self.correct_heading()
